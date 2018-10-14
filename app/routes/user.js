@@ -350,5 +350,6 @@ module.exports.setRouter = (app) => {
         }]
     */
 
+    app.post(`${appConfig.apiVersion}/removeWatcher/:userId`,notificationController.removeFromWatchList)
 
 }

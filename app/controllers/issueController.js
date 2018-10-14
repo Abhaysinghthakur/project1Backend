@@ -350,7 +350,6 @@ module.exports = {
     viewIssue: viewIssue,
     assignedIssue: assignedIssue,
     addComment: addComment,
-    allIssues: allIssues,
     readComment: readComment,
     searchIssue: searchIssue,
     filterIssue: filterIssue

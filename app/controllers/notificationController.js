@@ -235,11 +235,29 @@ eventEmitter.on('markNotificationAsSeen', (data) => {
     })
 })
 
+let removeFromWatchList =(req,res)=>{
+    if(check.isEmpty(req.params.userId)&&check.isEmpty(req.body.issueId)){
+        let apiResponse = response.generate(true,"userId missing in request",500,null);
+        res.send(apiResponse);
+    }else{
+        Watcher.update({"userId":req.params.userId},{$pull:{issueIdArray:req.body.issueId}},(err,result)=>{
+            if(err){
+                let apiResponse = response.generate(true,"error Occured while removing from watcherList",500,err);
+                res.send(apiResponse);
+            }else{
+                let apiResponse = response.generate(false,"Issue removed from watchList",200,result);
+                res.send(apiResponse);
+            }
+        })
+    }
+}
+
 module.exports = {
 
     addNotification: addNotification,
     getNotification: getNotification,
     addToWatcherList: addToWatcherList,
     getWatcherlist: getWatcherlist,
-    increaseNotificationCount: increaseNotificationCount
+    increaseNotificationCount: increaseNotificationCount,
+    removeFromWatchList:removeFromWatchList
 }
